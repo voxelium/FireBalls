@@ -7,14 +7,9 @@ public class TowerBuilder : MonoBehaviour
     [SerializeField] private int _towerSize;
     [SerializeField] private Transform _buildPoint;
     [SerializeField] private Block _block;
-    [SerializeField] private float _blockHeigh;
+    [SerializeField] public float _blockHeigh;
     private List<Block> _blocks;
 
-
-    private void Start()
-    {
-        Build();
-    }
 
 
     // строим башню из блоков

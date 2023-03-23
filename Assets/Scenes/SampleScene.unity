@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b09198c9d4ab425db3e45a87f6ef7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _towerSize: 10
+  _towerSize: 6
   _buildPoint: {fileID: 550045737}
   _block: {fileID: -4286860491936364817, guid: dcc1b066714ec4bebb09d6dddd9827cf, type: 3}
   _blockHeigh: 0.75

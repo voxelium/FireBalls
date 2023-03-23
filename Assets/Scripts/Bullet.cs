@@ -20,4 +20,14 @@ public class Bullet : MonoBehaviour
     {
         transform.Translate(_moveDirection * _speed * Time.deltaTime);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out Block block))
+        {
+            block.Break();
+            Destroy(gameObject);
+        }
+    }
+
 }
