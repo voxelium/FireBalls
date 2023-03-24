@@ -18,10 +18,13 @@ public class Tower : MonoBehaviour
         blockHeigh = _towerBuilder._blockHeigh;
         _blocks = _towerBuilder.Build();
 
+
+        //Вроде как подписывает все блоки на ивент OnBulletHit - плохая практика
         foreach (var block in _blocks)
         {
-            block.BulletHit += OnBulletHit; 
+            block.BulletHit += OnBulletHit;
         }
+
     }
 
     private void OnBulletHit(Block hittedBlock)
@@ -37,9 +40,13 @@ public class Tower : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
+    //Должен Понижать башню, но почему-то не работает, хотя метод упешно вызывается пулей
+    public void LowerTheTower()
     {
-        
+        Debug.Log("TEST");
+        transform.position = transform.position - new Vector3 (transform.position.x, transform.position.y * blockHeigh, transform.position.z);
+
     }
+
+
 }

@@ -34,13 +34,13 @@ public class TowerBuilder : MonoBehaviour
     }
 
 
-    //расчитываем положение блока по Y
+    //Расчитывает положение блока по Y
     private Vector3 GetBuildPoint(Transform currentSegment)
     {
         return new Vector3(_buildPoint.position.x, currentSegment.position.y + _block.transform.localScale.y * _blockHeigh, _buildPoint.position.z);
     }
 
-    //спавним один блок башни
+    //Спавнит один блок башни
     private Block BuildBlock(Transform currentBuildPoint)
     {
         return Instantiate(_block, GetBuildPoint(currentBuildPoint), Quaternion.identity, _buildPoint);
