@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private Tower tower;
     [SerializeField] private float _speed;
     private Vector3 _moveDirection;
+    private Tower tower;
 
     // Start is called before the first frame update
     void Start()
     {
         _moveDirection = Vector3.forward;
+
+        tower = FindObjectOfType<Tower>();
     }
 
     // Update is called once per frame
@@ -28,10 +30,12 @@ public class Bullet : MonoBehaviour
         if (other.TryGetComponent(out Block block))
         {
             block.Break();
-            Destroy(gameObject);
 
             // вызывает методе понижение положения башни, но понижение не происходит, хотя метод вызывается
-            //tower.LowerTheTower();
+            tower.LowerTheTower();
+
+            Destroy(gameObject);
+
         }
     }
 

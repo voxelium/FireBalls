@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+
 
 [RequireComponent (typeof (TowerBuilder))]
 
 public class Tower : MonoBehaviour
 {
-
     private TowerBuilder _towerBuilder;
     private float blockHeigh;
     private List<Block> _blocks;
@@ -20,12 +21,14 @@ public class Tower : MonoBehaviour
 
 
         //Вроде как подписывает все блоки на ивент OnBulletHit - плохая практика
-        foreach (var block in _blocks)
-        {
-            block.BulletHit += OnBulletHit;
-        }
+        //foreach (var block in _blocks)
+        //{
+        //    block.BulletHit += OnBulletHit;
+        //}
 
     }
+
+
 
     private void OnBulletHit(Block hittedBlock)
     {
@@ -40,11 +43,14 @@ public class Tower : MonoBehaviour
     }
 
 
-    //Должен Понижать башню, но почему-то не работает, хотя метод упешно вызывается пулей
+
+    // Понижает башню
     public void LowerTheTower()
     {
-        Debug.Log("TEST");
-        transform.position = transform.position - new Vector3 (transform.position.x, transform.position.y * blockHeigh, transform.position.z);
+        //понижает башню через VS - сохранить как пример отправки запуска Custom Event из C#
+        //CustomEvent.Trigger(gameObject, "LowerMe");
+
+        transform.position = new Vector3 (transform.position.x, transform.position.y - blockHeigh, transform.position.z);
 
     }
 
