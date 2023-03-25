@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 [RequireComponent (typeof (TowerBuilder))]
@@ -12,6 +13,9 @@ public class Tower : MonoBehaviour
     private float blockHeigh;
     private List<Block> _blocks;
 
+    public event UnityAction<int> SizeUpdated;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +23,14 @@ public class Tower : MonoBehaviour
         blockHeigh = _towerBuilder._blockHeigh;
         _blocks = _towerBuilder.Build();
 
+        //евент передает количество блоков на старте игры
+        SizeUpdated?.Invoke(_blocks.Count);
 
-        //Вроде как подписывает все блоки на ивент OnBulletHit - плохая практика
-        //foreach (var block in _blocks)
-        //{
-        //    block.BulletHit += OnBulletHit;
-        //}
+        //подписывает все блоки на ивент OnBulletHit
+        foreach (var block in _blocks)
+        {
+            block.BulletHit += OnBulletHit;
+        }
 
     }
 
@@ -35,10 +41,8 @@ public class Tower : MonoBehaviour
         hittedBlock.BulletHit -= OnBulletHit;
         _blocks.Remove(hittedBlock);
 
-        foreach (var block in _blocks)
-        {
-            block.transform.position = new Vector3(block.transform.position.x, block.transform.position.y - block.transform.localScale.y * blockHeigh, block.transform.position.z);
-        }
+        //евент передает количество блоков после каждого уничтожения блока
+        SizeUpdated?.Invoke(_blocks.Count);
 
     }
 
