@@ -130,5 +130,5 @@ MonoBehaviour:
   _speed: 20
   _bounceForce: 1000
   _bounceRadius: 5
-  _bounceUpwords: 1.2
+  _bounceUpwords: 1.6
   _timeForDestroy: 2
