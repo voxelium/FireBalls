@@ -11,8 +11,10 @@ public class txtTowerLevels : MonoBehaviour
 
     private void OnEnable()
     {
-        _tower.SizeUpdated += PrintTextUpdated; 
+        _tower.SizeUpdated += PrintTextUpdated;
+
     }
+
 
     private void OnDisable()
     {
@@ -25,6 +27,8 @@ public class txtTowerLevels : MonoBehaviour
     {
         _txtTowerLevels.text = levelsCount.ToString();
     }
+
+
 
 
 

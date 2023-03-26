@@ -9,12 +9,14 @@ using UnityEngine.Events;
 
 public class Tower : MonoBehaviour
 {
+    [SerializeField] public int _defeats = 3;
     private TowerBuilder _towerBuilder;
     private float blockHeigh;
     private List<Block> _blocks;
+    private int damageCount = 0;
 
     public event UnityAction<int> SizeUpdated;
-    
+    public event UnityAction<int> DamageUpdate;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +25,11 @@ public class Tower : MonoBehaviour
         blockHeigh = _towerBuilder._blockHeigh;
         _blocks = _towerBuilder.Build();
 
-        //евент передает количество блоков на старте игры
+        //евент передает количество блоков
         SizeUpdated?.Invoke(_blocks.Count);
+
+        //евент передает количество попаданий к игрока
+        DamageUpdate?.Invoke(damageCount);
 
         //подписывает все блоки на ивент OnBulletHit
         foreach (var block in _blocks)
@@ -34,6 +39,9 @@ public class Tower : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+    }
 
 
     private void OnBulletHit(Block hittedBlock)
@@ -46,6 +54,13 @@ public class Tower : MonoBehaviour
 
     }
 
+    public void DamageCounting()
+    {
+        damageCount ++ ;
+
+        DamageUpdate?.Invoke(damageCount);
+
+    }
 
 
     // Понижает башню

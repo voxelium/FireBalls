@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5899141140379686672}
   - component: {fileID: 5899141140379686679}
   - component: {fileID: 5899141140379686675}
-  - component: {fileID: 6944272425693561271}
+  - component: {fileID: 4801036343312355135}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6944272425693561271
+--- !u!114 &4801036343312355135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 20
-  _bounceForce: 500
+  _bounceForce: 1000
   _bounceRadius: 5
   _bounceUpwords: 1.2
+  _timeForDestroy: 2

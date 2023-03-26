@@ -10,14 +10,14 @@ public class Tank : MonoBehaviour
     [SerializeField] private Bullet _bulletTemplate;
     [SerializeField] private float _delayBetWeenShoots;
     [SerializeField] private float _recoilDistance;
-
+    [SerializeField] private Tower _tower;
     private float _timeAfterShoot;
+    private bool canShoot = true;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        _tower.SizeUpdated += StopGameYouWin;
+        _tower.DamageUpdate += StopGameYouFail;
     }
 
     // Update is called once per frame
@@ -25,12 +25,13 @@ public class Tank : MonoBehaviour
     {
         _timeAfterShoot += Time.deltaTime;
 
-        //if (Input.GetMouseButton(0))
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Stationary)
+      
+        if (canShoot == true & Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Stationary)
         {
             if (_timeAfterShoot > _delayBetWeenShoots)
             {
                 Shoot();
+
                 transform.DOMoveZ(transform.position.z - _recoilDistance, _delayBetWeenShoots/2).SetLoops(2, LoopType.Yoyo);
                 _timeAfterShoot = 0;
             }
@@ -44,6 +45,24 @@ public class Tank : MonoBehaviour
     {
         Instantiate(_bulletTemplate, _shootPoint.position, Quaternion.identity);
 
+    }
+
+
+    private void StopGameYouWin(int levelsCount)
+    {
+        if (levelsCount == 0)
+        {
+            canShoot = false;
+        }
+    }
+
+
+    private void StopGameYouFail(int damages)
+    {
+        if (damages == _tower._defeats)
+        {
+            canShoot = false;
+        }
     }
 
 }

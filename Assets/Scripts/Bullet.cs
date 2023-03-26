@@ -5,11 +5,14 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _speed = 20;
-    [SerializeField] private float _bounceForce = 500;
+    [SerializeField] private float _bounceForce = 1000;
     [SerializeField] private float _bounceRadius = 5;
     [SerializeField] private float _bounceUpwords = 1.2f;
+    [SerializeField] private float _timeForDestroy = 2;
     private Vector3 _moveDirection;
     private Tower tower;
+    private float timer;
+    private bool canCollide = true;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,13 @@ public class Bullet : MonoBehaviour
     {
         //перемещение пули с заданной скоростью
         transform.Translate(_moveDirection * _speed * Time.deltaTime);
+
+        //Таймер для уничтожения пули
+        timer += Time.deltaTime;
+        if (timer > _timeForDestroy)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
@@ -33,6 +43,7 @@ public class Bullet : MonoBehaviour
         if (other.TryGetComponent(out Block block))
         {
             block.Break();
+            //Debug.Log("пуля попала в блок");
 
             // вызывает методе понижение положения башни, но понижение не происходит, хотя метод вызывается
             tower.LowerTheTower();
@@ -40,10 +51,11 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-       
-        if (other.TryGetComponent(out Obstacle obstacle))
+        if (other.TryGetComponent(out Obstacle obstacle) & canCollide == true)
         {
             Bounce();
+            tower.DamageCounting();
+            canCollide = false;
         }
 
     }
@@ -56,7 +68,6 @@ public class Bullet : MonoBehaviour
         _speed = 0;
         Rigidbody rigidbody = GetComponent<Rigidbody>();
         rigidbody.isKinematic = false;
-        //rigidbody.AddExplosionForce(_bounceForce, transform.position + new Vector3(0, 0, 1), _bounceRadius, _bounceUpwords, ForceMode.VelocityChange);
 
         rigidbody.AddExplosionForce(_bounceForce, transform.position + new Vector3(0, 0, 1), _bounceRadius, _bounceUpwords);
 
