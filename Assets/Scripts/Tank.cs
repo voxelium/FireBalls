@@ -26,7 +26,7 @@ public class Tank : MonoBehaviour
         _timeAfterShoot += Time.deltaTime;
 
       
-        if (canShoot == true & Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Stationary)
+        if (canShoot == true & Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             if (_timeAfterShoot > _delayBetWeenShoots)
             {
