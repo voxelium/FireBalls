@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+
+[RequireComponent(typeof(AudioSource))]
 
 public class canvas_GameOver : MonoBehaviour
 
 {
-    //[SerializeField] private TMP_Text txtTMP;
     [SerializeField] private Tower _tower;
     [SerializeField] private Canvas _canvas;
+
+    [Header("Audio")]
+    private AudioSource audioSource;
+    [SerializeField] AudioClip audioClip;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = audioClip;
+
         _canvas.enabled = false;
         _tower.DamageUpdate += PrintGameOver;
 
@@ -24,12 +30,10 @@ public class canvas_GameOver : MonoBehaviour
     {
         if (count == _tower._defeats)
         {
+            audioSource.Play();
             _canvas.enabled = true;
         }
         
     }
-
-
-
 
 }

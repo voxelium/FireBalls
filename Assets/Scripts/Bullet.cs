@@ -11,7 +11,6 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float _timeForDestroy = 2;
     private Vector3 _moveDirection;
     private Tower tower;
-    private float timer;
     private bool canCollide = true;
 
     // Start is called before the first frame update
@@ -20,6 +19,8 @@ public class Bullet : MonoBehaviour
         _moveDirection = Vector3.forward;
 
         tower = FindObjectOfType<Tower>();
+
+        Destroy(gameObject, _timeForDestroy);
     }
 
     // Update is called once per frame
@@ -27,13 +28,6 @@ public class Bullet : MonoBehaviour
     {
         //перемещение пули с заданной скоростью
         transform.Translate(_moveDirection * _speed * Time.deltaTime);
-
-        //Таймер для уничтожения пули
-        timer += Time.deltaTime;
-        if (timer > _timeForDestroy)
-        {
-            Destroy(gameObject);
-        }
     }
 
 
@@ -43,14 +37,15 @@ public class Bullet : MonoBehaviour
         if (other.TryGetComponent(out Block block))
         {
             block.Break();
+            tower.PlayAudioBlockDamaged();
             //Debug.Log("пуля попала в блок");
 
-            // вызывает методе понижение положения башни, но понижение не происходит, хотя метод вызывается
+            // вызывает метод понижения положения башни
             tower.LowerTheTower();
-
             Destroy(gameObject);
         }
 
+        //Столкновение с препятствием
         if (other.TryGetComponent(out Obstacle obstacle) & canCollide == true)
         {
             Bounce();

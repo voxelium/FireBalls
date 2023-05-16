@@ -6,9 +6,15 @@ using UnityEngine.Events;
 
 
 [RequireComponent (typeof (TowerBuilder))]
+[RequireComponent(typeof(AudioSource))]
 
 public class Tower : MonoBehaviour
 {
+    [Header("Audio")]
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip audioClip;
+
+    [Header("___")]
     [SerializeField] public int _defeats = 3;
     private TowerBuilder _towerBuilder;
     private float blockHeigh;
@@ -37,10 +43,6 @@ public class Tower : MonoBehaviour
             block.BulletHit += OnBulletHit;
         }
 
-    }
-
-    private void Update()
-    {
     }
 
 
@@ -73,5 +75,13 @@ public class Tower : MonoBehaviour
 
     }
 
+
+    public void PlayAudioBlockDamaged()
+    {
+        audioSource.volume = 0.1f;
+        audioSource.clip = audioClip;
+        audioSource.Play();
+
+    }
 
 }
