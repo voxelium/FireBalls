@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using IJunior.TypedScenes;
 
-public class TowerBuilder : MonoBehaviour
+public class TowerBuilder : MonoBehaviour, ISceneLoadHandler<LevelConfiguration>
 {
     [SerializeField] private int _towerSize;
     [SerializeField] private Transform _buildPoint;
@@ -51,4 +52,8 @@ public class TowerBuilder : MonoBehaviour
     }
 
 
+    public void OnSceneLoaded(LevelConfiguration argument)
+    {
+        _towerSize = argument.TowerSize;
+    }
 }

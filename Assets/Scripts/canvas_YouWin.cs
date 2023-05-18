@@ -12,7 +12,7 @@ public class canvas_YouWin : MonoBehaviour
     void Start()
     {
         _canvas.enabled = false;
-        _tower.SizeUpdated += PrintWin;
+        //_tower.SizeUpdated += PrintWin;
     }
 
 
