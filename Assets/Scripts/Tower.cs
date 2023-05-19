@@ -19,13 +19,15 @@ public class Tower : MonoBehaviour
     private TowerBuilder _towerBuilder;
     private float blockHeigh;
     private List<Block> _blocks;
+    private int towerStartSize;
     private int damageCount = 0;
+
 
     public event UnityAction<int> SizeUpdated;
     public event UnityAction<int> DamageUpdate;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _towerBuilder = GetComponent<TowerBuilder>();
         blockHeigh = _towerBuilder._blockHeigh;
@@ -33,6 +35,8 @@ public class Tower : MonoBehaviour
 
         //евент передает количество блоков
         SizeUpdated?.Invoke(_blocks.Count);
+
+        towerStartSize = _blocks.Count;
 
         //евент передает количество попаданий к игрока
         DamageUpdate?.Invoke(damageCount);

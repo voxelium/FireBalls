@@ -56,4 +56,11 @@ public class TowerBuilder : MonoBehaviour, ISceneLoadHandler<LevelConfiguration>
     {
         _towerSize = argument.TowerSize;
     }
+
+    public int GetTowerStartSize()
+    {
+        return _towerSize;
+    }
+
+
 }
